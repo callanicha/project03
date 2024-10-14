@@ -1,20 +1,3 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const usersRouter = require("./routes/users.js")
-const db = require("./database")
-
-app.use("/api/", usersRouter)
-
-app.use(express.json());
-
-//GET METHODS
-app.get("/", (req, res) => {
-    res.json({
-        msg: "This the message"
-    })
-})
-
 const sqlite3 = require("sqlite3").verbose()
 
 // Open the database connection
@@ -41,13 +24,3 @@ const db = new sqlite3.Database("./users.db", (err) => {
 })
 
 module.exports = db
-
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
-
-//Open your browser and go to http://localhost:3000. 
-// You should see the message "Welcome to our simple REST API!"
-

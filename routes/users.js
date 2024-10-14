@@ -35,7 +35,7 @@ router.get("/users", (req, res) => {
 })
 
 //POST METHODS
-app.post("/users", (req, res) => {
+router.post("/users", (req, res) => {
 	const { firstName, lastName } = req.body
 
 	res.json({
@@ -46,7 +46,7 @@ app.post("/users", (req, res) => {
 })
 
 //PUT METHODS
-app.put("/users", (req, res) => {
+routerouer.put("/users", (req, res) => {
 	const { firstName, lastName } = req.body
   const userId = req.params.id
 
@@ -59,7 +59,7 @@ app.put("/users", (req, res) => {
 })
 
 //DELETE METHODS
-app.delete("/users/:id", (req, res) => {
+router.delete("/users/:id", (req, res) => {
   const { id } = req.params;
 
 	res.json({
