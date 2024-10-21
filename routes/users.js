@@ -1,81 +1,20 @@
 const express = require("express")
 const router = express.Router()
 
-const db = require("../database")
-
-// const usersArray = [
-// 	{
-// 	"ID": 1,
-// 	"firstName": "John",
-// 	"lastName": "Doe"
-// 	},
-// 	{
-// 	"ID": 2,
-// 	"firstName": "Jane",
-// 	"lastName": "Smith"
-// 	},
-// 	{
-// 	"ID": 3,
-// 	"firstName": "Michael",
-// 	"lastName": "Johnson"
-// 	},
-// 	{
-// 	"ID": 4,
-// 	"firstName": "Emily",
-// 	"lastName": "Davis"
-// 	},
-// 	{
-// 	"ID": 5,
-// 	"firstName": "Chris",
-// 	"lastName": "Brown"
-// 	}
-// ]
+// const db = require("../database")
+const { checkApiKey } = require("../middleware/checkApiKey.js");
+const { getAllUsers, createNewUser , updateUser , deleteUser } = require('../controllers/usersControllers.js');
 
 //GET METHODS
-
-router.get("/users", (req, res) => {
-	// res.json(usersArray)
-	db.all('SELECT * FROM users', [], (err, rows) => {
-		if (err) {
-		  res.status(500).json({ error: err.message });
-		} else {
-		  res.json(rows);
-		}
-	  });
-})
+router.get("/users" , checkApiKey , getAllUsers);
 
 //POST METHODS
-router.post("/users", (req, res) => {
-	const { firstName, lastName } = req.body
-
-	res.json({
-		msg: "This the message from PUT ",
-		firstName,
-		lastName,
-	})
-})
+router.post("/users", checkApiKey , createNewUser);
 
 //PUT METHODS
-router.put("/users", (req, res) => {
-	const { firstName, lastName } = req.body
-  const userId = req.params.id
-
-	res.json({
-		msg: "This the message from PUT ",
-    userId,
-		firstName,
-		lastName,
-	})
-})
+router.put("/users/:id", checkApiKey , updateUser);
 
 //DELETE METHODS
-router.delete("/users/:id", (req, res) => {
-  const { id } = req.params;
-
-	res.json({
-		msg: "This the message from DELETE ",
-    id
-	})
-})
+router.delete("/users/:id", checkApiKey , deleteUser);
 
 module.exports = router
